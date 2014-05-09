@@ -52,6 +52,8 @@
 	  - CORNER_SCALE = .3 - Scale factor to size the corner boxes on objects
 	(3) Upper right corner now closes windows, does not resize.
 	(4) Bug fixes.
+	  - Patch to qShare that resolves an issue with the overlayed pointer when the
+          machine running qshare has more than 1 X screen
 
 	
 1. Install libraries
