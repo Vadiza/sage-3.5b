@@ -1,0 +1,14 @@
+#!/bin/sh
+
+DEST=`pwd`
+
+make distclean
+
+./autogen.sh --prefix=$DEST/build
+
+make clean
+make -j 4
+make install
+
+/bin/cp bin/uv ../../bin
+

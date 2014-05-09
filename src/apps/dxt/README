@@ -1,0 +1,6 @@
+
+To run:
+   ./dxt <widht> <height> <filename>
+
+   ./dxt 256 256 ../app/dxt/lena-dxt1-256.dxt
+

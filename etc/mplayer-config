@@ -1,0 +1,21 @@
+#
+# MPlayer configuration file
+#   to be copied as $HOME/.mplayer/config
+#
+
+# Audio output options
+#ao="sam:ip=131.193.77.178"
+#ao="sam:ip=67.58.41.28:type=1"
+#ao="sam:ip=67.58.62.24"
+#ao=alsa:device=front
+#ao=null
+ao=sam:ip=127.0.0.1
+
+# Multi-threading options
+#   improves single instance of mplayer (blu-ray, 4K, ...)
+#   might be overkill for many small files (720p, HD, ...)
+lavdopts=fast=1:threads=4
+
+# Controls A/V sync delay
+#delay=0.25
+

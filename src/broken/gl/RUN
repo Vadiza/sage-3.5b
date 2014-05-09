@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#export SAGE_GL_WIDTH=800
+#export SAGE_GL_HEIGHT=600
+
+export LD_PRELOAD=$SAGE_DIRECTORY/bin/libmyGL.so
+export SAGE_GL=/usr/lib/libGL.so.1
+$*
+export -n LD_PRELOAD
+
+

@@ -1,0 +1,9 @@
+Number of nodes: 1 master + X rendering nodes
+   i.e. : -mp 3 ---> 2 rendering nodes and 1 master
+
+Run:
+	mpirun -np 3 checker-mpi
+
+Debug:
+	mpirun -np 3 xterm -e gdb checker-mpi 
+

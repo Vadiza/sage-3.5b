@@ -1,0 +1,55 @@
+---------------------------------------------------
+		
+		SAGE UI README
+                (version 3.0a)
+
+---------------------------------------------------
+(last updated on Feb, 2008)	
+
+
+
+
+(1) REQUIREMENTS (none for binary distributions):
+-------------------------------------------------
+
+- Python 2.4    	(www.python.org)
+- wxPython 2.6.2    	(www.wxPython.org)
+- either one of the following (numpy preferred):
+      - numpy     (http://numpy.scipy.org)
+      - nummarray (it's being phased out though so SAGE UI has been made
+      		  compatible with the first two packages) 
+
+
+(2) HOW TO RUN:
+---------------
+
+- make sure that fsManager is already running on the machine you are trying to connect to
+- run SAGE UI:
+	
+	FROM BINARY:
+		Windows - sageui [options]
+		Mac     - ./sageui [options]
+
+	FROM SOURCE:
+		Linux, Windows - python  sageui.py [options]
+	        Mac            - pythonw sageui.py [options]
+		      
+	- to see a list of options run the UI with "-h" (such as python sageui.py -h)
+
+
+
+(3) KNOWN BUGS:
+----------------
+
+- under some versions of KDE the background color of the panel that shows the performance
+  data might look odd.The reason behind this is that the new versions of wxPython strictly 
+  obey the current theme's colors and will not allow them to be changed by the application 
+  itself. The issue seems to be related to the QT drawing used in KDE themes. Since GNOME 
+  uses GTK (which is what linux version of wxPython uses for its drawing), it won't exhibit 
+  the same problem and the colors will look normal.
+
+
+
+---------------------------------------------
+Feb, 2008
+Ratko Jagodic - rjagodic@gmail.com

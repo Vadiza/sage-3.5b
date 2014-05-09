@@ -1,0 +1,11 @@
+#!/bin/sh
+
+killall -9 decklinkcapture jackd
+
+# audio (SAM)
+#   notice: no space between -u and IP address
+decklinkcapture -m 6 -i 2 -v -y -u127.0.0.1 -s 32
+
+# no audio
+# decklinkcapture -m 6 -i 2 -v -y
+

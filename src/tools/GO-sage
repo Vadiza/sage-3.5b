@@ -1,0 +1,39 @@
+#!/bin/sh
+
+cd $SAGE_DIRECTORY/bin
+
+./KILL_ALL
+
+
+#####  X setup #######
+xhost +local:
+xset  dpms force on
+xset -dpms
+######################
+
+cd $SAGE_DIRECTORY/bin
+sleep 1
+
+./fsManager &
+
+sleep 3
+
+cd appLauncher && python appLauncher.pyc -v &
+
+sleep 2
+
+cd dim && python dim.pyc -v &
+
+sleep 2
+
+cd fileServer && python fileServer.pyc &
+
+cd $SAGE_DIRECTORY/bin
+if [ -x sam ]
+then
+	killall -9 sam jackd
+	./sam -m 2 &
+fi
+
+#wait
+

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ -x /usr/bin/ooconvert ]
+then
+	# make sure Office is not running
+	killall -9 soffice.bin
+	# run the OpenOffice conversion tool to PDF
+	/usr/bin/ooconvert "$1" "$1".pdf
+	# open the PDF viewer application
+	export -n SAGE_APP_CONFIG
+	$SAGE_DIRECTORY/bin/pdfviewer "$1".pdf
+fi
+
+

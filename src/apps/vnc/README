@@ -1,0 +1,39 @@
+-----------------------------------------------
+
+VNCViewer for SAGE2
+
+-----------------------------------------------
+
+
+
+(1) INSTALLATION:
+-----------------
+
+- type "make install" (after you have already compiled SAGE)
+- make an entry for VNCViewer in the $SAGE_DIRECTORY/bin/appLauncher/sage.conf file, such as:
+
+VNCViewer {
+configName MyDesktop
+nodeNum 1
+Init 100 100 1024 768
+exec 127.0.0.1 VNCViewer
+nwProtocol tvTcpModule.so
+}
+
+- don't worry about the Init line too much because that information will be overwritten automatically
+  so that it corresponds to your desktop size
+
+
+(2) HOW TO USE:
+---------------
+- from the SAGE UI click on the "VNC" icon and then choose "MyDesktop" from the menu
+- a dialog will pop up where you can change some parameters: in most cases you will 
+  only need to type the password to match your vnc server's password.
+- click "Show" and your desktop should show up on the SAGE display
+- to stop sharing your desktop just close the SAGE window for your vnc session from the SAGE UI
+
+- by default the VNCViewer will stream your desktop to SAGE at 1fps. This is done to minimize the
+  bandwidth usage but still be useful for sharing your desktop. However, this frame rate can be
+  changed but you will need to start the VNCViewer by hand as follows:
+  VNCviewer <hostname> <display#> <width> <height> <password> <fps>
+

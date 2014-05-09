@@ -1,0 +1,13 @@
+#!/bin/sh
+
+
+cd $SAGE_DIRECTORY/bin/appLauncher
+
+echo "Killing previous instances..."
+python KILL_LAUNCHER.pyc
+
+echo "Starting a new server..."
+python appLauncher.pyc -a Luc-sage3 &
+
+echo "Done."
+

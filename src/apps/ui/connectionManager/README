@@ -1,0 +1,138 @@
+###################################################
+		
+	   SAGE Users Server README
+
+###################################################
+(last updated on Semptember 19, 2005)	
+
+
+
+
+(1) REQUIREMENTS:
+-----------------
+
+- Python 2.3    	(www.python.org)
+
+
+
+(2) HOW TO RUN:
+---------------
+
+- python UsersServer.py [UI_PORT] [SAGE_PORT] &
+- "&" is added at the end so that the server can run in the background even when you log out (on Linux only)
+- UI_PORT is an optional parameter for specifying on which port will the server accept connections from the SAGE UIs
+- SAGE_PORT is an optional parameter for specifying on which port will the server accept connections from the fsManagers
+- NOTE: you must specify both ports at the same time (or no ports at all)
+
+
+- to run the admin tool: 
+  python admin.py [XMLRPC_SERVER_IP] [XMLRPC_SERVER_PORT]
+- the XMLRPC server is started up when the usersServer is started and is constantly running on port 8008.
+- the IP is just the IP of the machine where the usersServer is running.
+- NOTE: this tool should only be used in case something goes wrong and some sockets are still left open even though the connections should have closed.
+
+
+(3) MORE INFORMATION:
+----------------------
+
+DEFAULT PORTS USED:
+- 15555 for SAGE UI connections (i.e. user connections)
+- 15556 for SAGE connections (fsManagers)
+- 8008  for XMLRPC server (for the admin.py tool connection)
+
+LOGGING: 
+the usersServer logs all activity in a local file "log.txt", however the content of the messages is not logged. The format is very crude but it still gives an idea of what was happening if something goes wrong. Some major events such as connection/disconnection of SAGE and SAGE UI have timestamps on them.
+
+MESSAGES: 
+  ------------------------------------------------------------
+  All messages are sent in this format (as strings):
+  code
+  data
+
+  For example:
+  "2002"\n
+  "Ratko"
+ 
+  Note that every line is separated by a newline character.
+
+
+  All machines are always keyed by IP that the users should connect to to control SAGE
+  All users are always keyed by their username, hence the username checking (for duplicates)
+  All messages are of fixed size and that's currently 2048 bytes
+
+
+  The format for every message is explained below:
+
+  <<< UI  --->  SERVER >>>
+  CODE    FORMAT                 MESSAGE
+  ----------------------------------------------------------------
+  2000    username                register this user with the Users server
+          info
+          machine_ip              the machines the user is connected to
+          machine_ip
+          ...
+
+  2001    from={username}         send a chat message to one person or to all
+          to={"all" | ip}         ip = specific to users connected to a sepcific SAGE machine
+          message
+
+  2002    username                check username for duplicates
+
+  2003    username                unregister this username from the machine specified
+          machine_ip
+
+          
+  <<< SERVER  --->  UI >>>
+  CODE    FORMAT                 MESSAGE
+  ----------------------------------------------------------------
+ 
+  30000   machine_name            a status list of all the MACHINES registered with the server
+          ip
+          port
+          alive={"1" | "0"}       if the machine is alive, send 1, otherwise send 0
+          displayInfo             in this format: "Xtiles Ytiles totalWidth totalHeight tileWidth tileHeight"
+          "!#%$"               < --- a break between different blocks of data
+          machine_name
+          ip
+          port
+          alive={"1" | "0"}       if the machine is alive, send 1, otherwise send 0
+          displayInfo             in this format: "Xtiles Ytiles totalWidth totalHeight tileWidth tileHeight"
+          "!#%$"
+          ....
+
+
+  30001   username                receive a list of USERS that are connected and their info
+          info
+          machine_ip              the machines the user is connected to
+          machine_ip
+          "!#%$"               < --- a break between different users' info
+          username
+          info
+          machine_ip
+          "!#%$"
+          ....
+
+  30002   from={username}         receive a chat message from one person,
+          to={"all" | ip}        ip = specific to users connected to a specific SAGE machine
+          message
+
+  30003   "1" | "0"              1=username OK, 0=username already in use
+
+  31000   message                an informative message... just any string
+
+
+
+  <<< SAGE  --->  SERVER >>>
+  CODE    FORMAT                 MESSAGE
+  ----------------------------------------------------------------
+  
+  100     machine_name           "i am alive" message from SAGE
+          ip                   < --- machine ip and port that SAGE UIs should connect to
+          port
+          displayInfo             in this format: "Xtiles Ytiles totalWidth totalHeight tileWidth tileHeight"
+
+
+
+---------------------------------------------
+September 19, 2005
+Ratko Jagodic - rjagodic@evl.uic.edu

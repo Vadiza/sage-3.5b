@@ -1,0 +1,71 @@
+To build the SAGE RPM:
+-------------------------
+	Create ~/.rpmmacros 
+		%_topdir	/home/evl/luc/Dev/SAGE-Distribution
+		%_tmppath	/home/evl/luc/Dev/SAGE-Distribution/tmp
+
+	Setup:
+		mkdir SAGE-Distribution
+		cd SAGE-Distribution
+		mkdir BUILD BUILDROOT RPMS  SOURCES  SPECS  SRPMS  tmp SVN
+		Work in SVN directory to prepare your source.tar.gz
+			tar -cvzf sage-3.2.tar.gz --exclude=.svn sage-3.2
+		Copy source.tar.gz into SOURCES
+		Copy sage.spec (from sage/etc) into SPECS
+
+	Build the RPM:
+		rpmbuild -ba SPECS/sage.spec
+
+
+Directory /etc/profile.d:
+-------------------------
+
+file sage.csh:
+	# Add paths for the SAGE package
+	setenv SAGE_DIRECTORY /usr/local/sage
+	setenv PATH ${PATH}:${SAGE_DIRECTORY}/bin
+
+file sage.sh:
+	# Add paths for the SAGE package
+	export SAGE_DIRECTORY=/usr/local/sage
+	export PATH="$PATH:$SAGE_DIRECTORY/bin"
+
+
+Directory /etc/ld.so.conf.d:
+-------------------------
+
+file sage.conf:
+	/usr/local/sage/lib64
+
+
+
+To Compile python code
+-------------------------
+	import compileall
+	compileall.compile_dir(".", force=1)
+
+
+Fedore specifics
+----------------
+
+SAGE deps
+	yum install subversion git gcc gcc-c++ 
+	yum install SDL-devel readline-devel freeglut-devel libjpeg-devel libjpeg-turbo-devel libpng-devel
+	yum install ImageMagick-devel libXmu-devel libXi-devel glew-devel SDL_ttf-devel poppler-devel libvncserver-devel
+	yum install qt-devel yasm cmake jack-audio-connection-kit-devel
+	yum install libtool-ltdl-devel gnutls-devel automake
+	yum install libv4l-devel qv4l2 v4l-utils-devel-tools libv4l v4l-utils v4l2ucp
+	yum install glew glew-devel
+
+Dev tools
+	yum install fedora-packager
+
+Setup env
+.profile
+export QTDIR=/usr/lib64/qt4
+export PATH=$QTDIR/bin:$PATH
+
+yum install openssh-server
+systemctl enable sshd.service
+systemctl start sshd.service
+

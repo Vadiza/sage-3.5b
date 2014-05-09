@@ -1,0 +1,87 @@
+-----------------------------------------------------
+
+            FILE VIEWER FOR SAGE
+
+-----------------------------------------------------
+Author: Ratko Jagodic
+Last Update: April 12, 2008
+
+
+
+
+PREREQUISITES:
+----------------------------------------------------
+
+- python 2.3 or later
+- wxPython 2.6 or later
+- for ImageViewer: ImageMagick development libraries (if not already installed, these can probably 
+						      be found on your linux distribution discs)
+- SAGE must be installed already and the $SAGE_DIRECTORY environment variable set up
+
+
+
+HOW TO INSTALL:
+----------------------------------------------------
+
+- type "make install" from this directory
+- this will:
+	- compile ImageViewer and imgToDxt
+	- copy imageviewer to $SAGE_DIRECTORY/bin, file_server.py, file_server.conf, imgToDxt and dirToDxt.py to $SAGE_DIRECTORY/bin/file_server
+
+- make an entry in the $SAGE_DIRECTORY/appLauncher/sage.conf for ImageViewer, for example (this should work in most cases):
+
+	imageviewer {
+	configName images
+	nodeNum 1
+	Init 100 100 500 500
+	exec 127.0.0.1 imageviewer 127.0.0.1
+	nwProtocol tvTcpModule.so
+	}
+
+
+
+
+HOW TO RUN:
+----------------------------------------------------
+
+- make sure the FileServer is checked in the SageLauncher and click START (it's checked by default)
+
+
+
+HOW TO SHOW FILES:
+----------------------------------------------------
+
+There are three ways to show files:
+(1) drag and drop onto the SAGE UI
+(2) drag and drop onto the SAGE UI's File Library interface (press F2 or Options->File Library)
+(3) from the File Library interface click "Browse" and select a file from your local file system
+
+- by default, the file server will store all the files in the "file_library" directory that's relative to where
+  the file_server.py is located. This can be changed in the file_server.conf
+
+- take a look at file_server.conf for more information on how to add other file viewers to support other 
+  file types. There you can also change file associations and change the default directory where the files are stored 
+- you have to have file viewers registered with the file server (in file_server.conf) in order to view those types of files. 
+  By default images are supported with the ImageViewer that you compiled above. Also, you can download and 
+  install mplayer from the SAGE website to view a wide variety of movies.
+
+- the ImageViewer will work with images up to roughly 10000 x 10000 pixels and for anything much larger than that, use Magicarpet.
+  Actually, there is no theoretical limit on the image size besides the amount of memory but things will get really slow.
+
+
+
+COMPRESSION:
+----------------------------------------------------
+
+- Imageviewer now compresses all images into DXT1 format which is 1/8 of the size of the original RGBA data. This makes
+  the memory usage much smaller and allows for faster manipulation of image windows. Imageviewer by default checks whether
+  a dxt version of the file already exists in the same directory and it loads that instead. If it doesn't exist it converts
+  the input image to DXT, saves it to the current directory and streams it to SAGE. If you would like to show the original file
+  instead of the DXT version, run Imageviewer with "-show_original" flag.
+
+- if you have a file_library already with a bunch of original files in it, you can run dirToDxt.py and it will make DXT files
+  out of all the images in the input directory. Make sure that imgToDxt is compiled and in the same directory as the dirToDxt.py.
+  
+  Run with something like:
+	python dirToDxt.py image_dir
+

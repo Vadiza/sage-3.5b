@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>arrow2.png</file>
+        <file>arrow3.png</file>
+    </qresource>
+</RCC>

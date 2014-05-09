@@ -1,0 +1,10 @@
+%_topdir        /home/sage/Dev/SAGE-Distribution
+%_tmppath       /home/sage/Dev/SAGE-Distribution/tmp
+
+%__os_install_post    \
+    /usr/lib/rpm/redhat/brp-compress \
+    %{!?__debug_package:/usr/lib/rpm/redhat/brp-strip %{__strip}} \
+    /usr/lib/rpm/redhat/brp-strip-static-archive %{__strip} \
+    /usr/lib/rpm/redhat/brp-strip-comment-note %{__strip} %{__objdump} \
+%{nil}
+

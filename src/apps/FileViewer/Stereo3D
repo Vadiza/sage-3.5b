@@ -1,0 +1,76 @@
+#!/bin/sh
+
+arg="$1"
+ext=${arg##*.}
+ext=${ext,,}
+
+echo "Extension" $ext
+
+if [ $ext == "jps" -o $ext == "pns" ]
+then
+# already side by side
+
+	if [ $ext == "jps" ]
+	then
+		#/bin/mv -f "$arg" "$arg".jpg
+		#echo "Viewing 3D image:" "$arg".jpg
+		echo "Viewing 3D image:" "$arg"
+		$SAGE_DIRECTORY/bin/image3d -rl "$arg"
+	fi
+	if [ $ext == "pns" ]
+	then
+		#/bin/mv -f "$arg" "$arg".png
+		#echo "Viewing 3D image:" "$arg".png
+		echo "Viewing 3D image:" "$arg"
+		$SAGE_DIRECTORY/bin/image3d -rl "$arg"
+	fi
+
+else
+# it's a MPO file
+
+echo "Converting 3D image:" $arg
+
+/bin/mv -f "$arg" "${arg/mpo/MPO}"
+arg=${arg/mpo/MPO}
+
+filename=`basename $arg .MPO`
+
+/bin/rm -f $filename"_left.jpg" $filename"_right.jpg"
+
+# Guessing the camera make: SONY FUJIFILM
+make=`exiftool -T $arg -Make`
+
+if [ "$make" = "SONY" ]
+then
+        echo "SONY image"
+
+        echo "Extracting Right image"
+        exiftool -mpimage3 -b -w %f_right.jpg $arg
+
+        echo "Extracting Left image"
+        exiftool -all= --exif:all -o %f_left.jpg $arg
+else
+        echo "FUJI/etc image"
+
+        echo "Extracting Right image"
+        exiftool -mpimage2 -b -w %f_right.jpg $arg
+
+        echo "Extracting Left image"
+        exiftool -all= --exif:all -o %f_left.jpg $arg
+fi
+
+echo "Composing stereo file (side-by-side)"
+
+# put side by side and make sure it fits inside the wall (not to resize)
+convert $filename"_left.jpg" $filename"_right.jpg" +append -quality 100 -geometry "16000x2000>" $filename-sidebyside.jpg
+/bin/rm -f $filename"_left.jpg" $filename"_right.jpg"
+
+echo "Viewing 3D image:" $filename-sidebyside.jpg
+
+$SAGE_DIRECTORY/bin/image3d -lr $filename-sidebyside.jpg
+
+/bin/rm -f $filename-sidebyside.jpg
+
+# end of MPO
+fi
+

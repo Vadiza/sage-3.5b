@@ -1,0 +1,16 @@
+PROGRAM = libmyGL32.so
+
+CXX=g++ -m32 -Wno-deprecated
+CXXFLAGS= -I../../include
+
+FILES = gl.o
+
+$(PROGRAM): $(FILES)
+	$(CXX) -shared -o $(PROGRAM) $(FILES) -ldl -lc -L../../lib -lsail
+
+install: $(PROGRAM)
+	cp $(PROGRAM) ../../bin
+	cp $(PROGRAM) ../../lib
+
+clean:
+	/bin/rm -f *~ *.o $(PROGRAM)

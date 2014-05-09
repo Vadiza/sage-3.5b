@@ -1,0 +1,14 @@
+Webcam program using V4L2 Linux API
+-----------------------------------
+
+./webcam ---> 640x480 ,  usually 30fps
+./webcam -w 800 -h 504 ---> 800x504,  usually 25fps
+
+tested with Logitech Quickcam 9000
+
+Needs Pixfx-sse library to convert YUV to RGB
+    because V4L2 uses YUYV 422 and SAGE uses UYVY 422, so we convert to RGB for now
+    http://code.google.com/p/pixfc-sse/
+
+--
+Luc Renambot, EVL/UIC, Chicago, December 2011

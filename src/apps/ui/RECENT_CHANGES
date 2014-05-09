@@ -1,0 +1,174 @@
+
+
+HOW TO FIND OUT WHICH VERSION OF SAGE UI YOU HAVE
+----------------------------------------------------
+Versions prior to 2.5 weren't labeled so there is no way to find out version nubmers for those.
+However, from v2.5 on, SAGE UI has an About Box that shows the current version of the UI.
+
+
+CHANGES in v3.0a    (Feb 11, 2007)
+-----------------------------------------
+- this is the development version for SAGE3.0 (it's alpha since sage3 hasn't
+  been officially released at this point)
+- there are mostly minor changes... the biggest one being the change in
+  dependencies (numpy is now preferred over numarray since numarray is 
+  being phased out)
+- autologin to a machine feature (with -a command line parameter)
+- rotation of sage windows
+- support for multiple physical displays in one sage session - experimental!
+- some bug fixes (there are still some significant issues with MacOS)
+
+
+CHANGES in v2.84    (May 15, 2007)
+-----------------------------------------
+- direct interaction with the sage display using joysticks
+- the requirement for the minimum wxPython version has been dropped
+  to 2.6.2 (the one that ships with Suse 10.1). This solves the problem 
+  with non-functioning appLauncher admin tool on the earlier wxPython versions
+- there is a timeout on the mouseCapture call when moving applications which 
+  prevents capturing the system mouse on rare occasions
+
+
+CHANGES in v2.83    (March 5, 2007)
+-----------------------------------------
+- the sage server now reports system and public ip addresses and ports for each fsManager
+  therefore changes have been made to the server and the UI. System IP is the one reported
+  to the applications about where they should look for fsManager.
+- there is a "Remote Applications" button that enables you to start applications from remote
+  machines and tell them to stream their data to the current fsManager you are connected to
+  (this requires the appLauncher to report to the sage server)
+- added the appLauncher admin tool from which you can control application launchers (needs wxPython 2.6.3)
+- the vnc dialog has been simplified
+- some older and currently non-working features have been removed (session playback, saving state...)
+- bug fixes (z ordering, retrieving empty machine info...)
+
+
+CHANGES in v2.80    (November 20, 2006)
+-----------------------------------------
+- this is an official version of SAGE UI for SAGE2 and therefore some messages have changed
+- SAGE now does z-ordering so that has been taken out of SAGE UI
+- appLauncher is used for application launching instead of fsManager so an xmlrpc connection
+  is made to the appLauncher at startup to get the list of applications
+- left-click on app button launches the app normally (w/o sageBridge)
+- right-click launches the app through sageBridge so that the app can be shared
+- sage ui will run even without the appLauncher running
+- to stream already running apps either drag-and-drop the app onto a
+  new tab OR right-click on the app window and choose "Stream To:"
+  and select a machine from a submenu
+- fileLibrary can also run the applications through sageBridge by
+  checking a checkBox
+- performance data is ON by default but it will remember whether it was
+  on or off next time you start the UI
+- fixed some issues with VNC password saving and other preferences
+- VNC password is no longer encrypted because there were some issues with that
+- performance data format has changed so now there are only bandwidth and framerate available
+- when dropping the file onto the UI from the desktop, it will be automatically shown and
+  it wont ask you whether you want to upload it permanently or not
+
+- SAGE Server has changed in order to keep track of machines by their machine ID as opposed
+  to just IP addresses... the new default ports are 15557 for SAGE and 15558 for UI clients
+
+
+
+CHANGES in v2.72    (April 18, 2006)
+-----------------------------------------
+- file library interface changed a bit
+- can connect to and use multiple file libraries
+- shows metadata for the files in the library
+- retrieves previews of the files (images only) - previews are cached so their retrieval is fast
+- local and remote files are compared by size as well as by name
+- some other file library changes and fixes
+- file library can be stored remotely
+- file library has another component, file grabber, that fetches data 
+  from a remote machine (it caches the data locally)
+- imageviewer and mplayer buttons have been disabled in the ui
+- sage ui now has global preferences that are stored in binary pickle files as opposed to text files
+- all the preferences files are kept in the prefs/ subdirectory of sage ui
+- current preferences: usernames used, machines connected to, 
+  vnc profiles, favorite files from the file lib, visual prefs (chat panel shown/hidden, 
+  frame size and pos), file libraries connected to)
+
+
+
+CHANGES in v2.7:    (February 13, 2006)
+-----------------------------------------
+- Drag-and-drop of the multimedia files onto the UI itself (the file will show up on the
+  tiled display exactly where you dropped it in the UI). Currently images, videos and pdf
+  files are supported.
+- FileLibrary has been implemented - keeps track of, stores and organizes all the files that
+  have been shown on the display. It also lists all the files currently on the server that are available
+  for showing. It allows users to organize the files by directories and even save favorites.
+  In order of this to work a File Server has to be running that is included with SAGE.
+- The application performance panel has been redone (double buffered)
+- A timeout when users server / connection manager is not available (5 seconds)
+- Some speedup during resizing of the UI
+- Fixed a bug that was showing total render data for both graphs: total render and display.
+- support for easier vnc sessions is included in the ui (showing your desktop on a sage display)
+
+
+CHANGES in v2.61:   (September 19, 2005)
+------------------------------------------
+- a bug in usersServer was fixed (if SAGE connected but did not send 
+  a register message, it would stay connected forever)
+- a simple tool "admin.py" was made to check and modify the 
+  internal state of the usersServer. This should be used
+  only when things go wrong so that the individual connections with SAGE 
+  and/or users can be closed without restarting the server.
+- in the SAGE UI, console output is now redirected to a log file "output_log.txt" by default. 
+  In order to view the output in the
+  console, check "Menu -> Options -> Show Console Ouput"
+- since ListCtrl tooltips aren't working correctly on Windows and Mac, 
+  there is now an "Info" button in the connection dialog
+  that, if pressed, shows a dialog with information about the selected machine
+- Info, Connect and Delete buttons are greyed out if no selection is made in the connection dialog
+- last used username shows up first in the username combo box in the connection dialog
+- data displayed in the performance panel has been reorganized and rearranged a bit to improve clarity
+- there is little help question mark button in the connection dialog 
+  that brings up the about box with contact information
+
+
+
+CHANGES in v2.6:   (September 9, 2005)
+------------------------------------------
+- fixed a bug where sometimes machines were staying registered even when all 
+  the users have left the room and the machine died
+- fixed a bug that occurs when there is no hyperlink module in wxPython
+- fixed a bug with tool tips in the connection dialog so now they show the correct IP 
+  addresses even when there are multiple machines in the list with the same name but different IPs
+- fixed a bug where menu items weren't getting updated properly when a new connection was 
+  opened (when more than one connection was opened at once)
+- fixed a bug that caused the UI to crash when the user who ran the UI didn't have write permissions
+- all the usernames used to log in are stored locally in a file 
+  and can be chosen upon startup with the combo box
+- when starting SAGE UI, you can now specify the location of the 
+  connection manager (port number and IP address)
+- shapes now have icons in the top right corner for maximizing, minimizing and closing
+- minimize feature was also implemented where apps keep stacking 
+  themselves in the bottom left corner of the display
+- ability to shutdown SAGE from within the UI (File -> Shutdown SAGE)
+- saving and loading sessions is now handled through system dialogs
+- clicking the instance buttons now brings that app to the front
+
+
+
+CHANGES in v2.5:  (July 20, 2005)
+---------------------------------------------
+- the frame is now resizable based on the size of the display it is run on (and borders)
+- the displayCanvas tells the current user @ machine (ie Username @ yorda)
+- if the connection was unsuccessful, SAGE UI won't quit but instead 
+  will show the connection dialog again
+- fixed the ip addresses to that 1.2.3.4 is accepted as well as ico.evl.uic.edu
+- added ability to change SAGE background color
+- chat capability added with a room for every fsManager running... 
+  and for "All"...detachable/resizable panel
+- username login at the beginning
+- the beginning dialog changed
+- MS Windows draw problems fixed
+- MS Windows dialog problems fixed
+- optimized drawing a bit
+- fixed a CPU hogging bug on MS Windows
+- different app configurations now have short descriptive names (assigned in sage.conf)
+- connection to multiple SAGE environments at once is now possible (with the same username)
+- "About" dialog
+- minimum version requirements changed (wxPython --> min 2.6.1)
+- some minor bugs were fixed

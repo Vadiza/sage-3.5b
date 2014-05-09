@@ -1,0 +1,56 @@
+#
+#
+#	APP LAUNCHER for SAGE2
+#	
+#
+# Ratko Jagodic - Nov 8, 2006	
+--------------------------------------------------------
+
+
+
+1) INSTALLATION:
+------------------
+- appLauncher comes with sage and is placed in the bin/appLauncher folder
+- there is no need to install it but you do have to have python2.4 or 
+  later in order to run it
+
+
+
+2) CONFIGURATION:
+------------------
+- you need to modify the "applications.conf" file in the appLauncher folder
+- the format of the file and additional comments are in the file itself
+
+
+
+3) HOW TO RUN:
+----------------
+- to run type (from bin/appLauncher directory):
+
+	python appLauncher [sage_config_file][-v]
+
+- the first (optional) parameter is an alternative config file that the appLauncher
+  will use instead of the default "applications.conf"
+- '-v' shows the output of the appLauncher on the console, if not specified
+  the output will be written to 'output.txt' and 'errors.txt'
+- you can also run the appLauncher constantly in the background since it's 
+  not necessary to restart it whenever sage is restarted:
+
+	python appLauncher &
+
+
+
+4) APP CONFIG GENERATION:
+--------------------------
+- one of the main goals of the applauncher is to generate the app config files,
+  copy them to the rendering machine and execute the application
+- for this to work you need to have "scp" enabled and you need to have ssh permissions
+  on the rendering machines (the best is to set up ssh keys so that you dont have to 
+  type in passwords every time you launch an application)
+- the appLauncher also makes use of the SAGE_DIRECTORY environment variable in order 
+  to copy the app config files into SAGE_DIRECTORY/bin 
+- the app config files are generated from the applications.conf AND from the requests made by 
+  SAGE UI when launching applications. For example, if SAGE UI requests that the app be
+  shareable, the appLauncher will write the sageBridge info into the app config file,
+  otherwise the app will connect directly to SAGE and it wont be shareable.
+

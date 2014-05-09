@@ -1,0 +1,22 @@
+PROGRAM = atlantis
+
+CFLAGS		= 
+LDFLAGS		= 
+LDFLAGS		+= -lm  -framework GLUT -framework OpenGL -lobjc -lz
+CFLAGS  	+= -O3 -FGLUT -FOpenGL
+CC	        = g++
+
+FILES = atlantis.o dolphin.o shark.o swim.o whale.o
+
+default: $(PROGRAM)
+
+install: $(PROGRAM)
+	cp $(PROGRAM) ../../bin
+
+$(PROGRAM): $(FILES)
+	$(CC) -o $(PROGRAM) $(FILES) $(LDFLAGS)
+
+clean:
+	/bin/rm -f *~ *.o $(PROGRAM)
+
+distclean: clean

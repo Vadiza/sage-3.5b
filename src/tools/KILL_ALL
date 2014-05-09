@@ -1,0 +1,12 @@
+#!/bin/sh
+
+killall -9 python 
+
+killall -9 sam
+
+for node in `cat ${SAGE_DIRECTORY}/bin/tileNodes.list`
+do
+    #ssh -fx $node "killall -9  fsManager sageDisplayManager imageviewer mplayer bplay-noglut VNCViewer render atlantis atlantis-mpi checker pdfviewer image3d" 
+    ssh -x $node "killall -9  fsManager sageDisplayManager imageviewer mplayer bplay-noglut VNCViewer render atlantis atlantis-mpi checker pdfviewer image3d" 
+done
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd /home/evl/bijeong/dev/sage/trunk/app/atlantis-mpi
+mpirun -np $1 -nolocal -machinefile .local atlantis-mpi $2 $3 $4 $5 $6

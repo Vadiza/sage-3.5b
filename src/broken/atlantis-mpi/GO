@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mpirun -np 4 atlantis-mpi 0 400 400 2 2
+

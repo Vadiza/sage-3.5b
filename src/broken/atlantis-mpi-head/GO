@@ -1,0 +1,22 @@
+#!/bin/sh
+
+## fs.conf
+# atlantis-mpi 1200 600
+# syncMaster 10.0.8.113
+# 3
+# 10.0.8.113 0.0000 0.3333 0.0 1.0
+# 10.0.8.114 0.3333 0.6667 0.0 1.0
+# 10.0.8.117 0.6667 1.0000 0.0 1.0
+##
+
+
+/bin/rm -f .local
+touch .local
+echo "10.0.8.113" >> .local
+echo "10.0.8.114" >> .local
+echo "10.0.8.117" >> .local
+
+mpirun -np 3 -nolocal -machinefile .local atlantis-mpi 512 512
+
+/bin/rm -f .local
+

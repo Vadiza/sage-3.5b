@@ -1,0 +1,15 @@
+First time
+	dh_make -e renambot@gmail.com -f ../sage-3.2.tar.bz2
+
+Comment out PREFIX in Makefile
+Copy etc/ubuntu/debian into sage directory
+Dependencies are in debian/control
+
+Build package
+	dpkg-buildpackage -rfakeroot -b 
+Install package
+	dpkg -i sage_3.2-1_amd64.deb
+Remove package
+	dpkg -r sage
+Query list of installed packages
+	dpkg-query -l

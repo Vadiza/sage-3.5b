@@ -1,0 +1,19 @@
+PROGRAM = libmyGL.dylib
+
+CXX=g++
+CXXFLAGS= -I../../include -O3 -FGLUT -FOpenGL -I/usr/X11R6/include
+
+LDFLAGS= -lm -lpthread -L../../lib -lsail -framework GLUT -framework OpenGL -lobjc -ldl -lstdc++
+
+FILES = gl.o
+
+$(PROGRAM): $(FILES)
+	$(CXX)  -dynamiclib -flat_namespace -undefined suppress -o $(PROGRAM) $(FILES) $(LDFLAGS)
+
+install: $(PROGRAM)
+	cp $(PROGRAM) ../../bin
+	cp $(PROGRAM) ../../lib
+
+
+clean:
+	/bin/rm -f *~ *.o $(PROGRAM)

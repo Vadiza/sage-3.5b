@@ -1,0 +1,134 @@
+---------------------------------------------------
+		
+         	SAGE PROXY README
+
+---------------------------------------------------
+(last updated on July, 2007)	
+
+
+(0) DESCRIPTION
+---------------------------------------------------
+SageProxy exposes SAGE commands through web-services (XML-RPC). This allows
+you to easily talk to SAGE without using sockets and writing your own 
+complete client. This is mainly used by the SAGE Web UI for now.
+
+
+
+(1) REQUIREMENTS (none for binary distributions):
+---------------------------------------------------
+- Python 2.3    	(www.python.org)
+
+
+
+(2) HOW TO RUN:
+---------------------------------------------------
+- sageProxy is easily run through the SageLauncher included with SAGE v2.5 and later
+- to run by hand, see all the command line arguments with "python sageProxy.py -h"
+
+
+
+(3) CONTROLLING SAGE THROUGH SAGE PROXY (via XML-RPC):
+-------------------------------------------------------
+- the description of the methods is as follows:
+
+
+*******    bringToFront    *********
+
+Brings the application window to front (on top of the other ones).
+Returns: 1 if everythin went OK and the message was sent
+Returns: -1 if the message was not sent for whatever reason (including
+         if the app was already on top)
+
+
+
+********    closeApp    *********
+
+Closes the app corresponding to the specified appId.
+Returns: the new status of all the apps in the same format as getAppStatus
+        (sleeps 2 seconds before returning it to ensure that the datastructure was updated
+         by the messages from SAGE about the closed app)
+Returns: -1 if failed for whatever reason
+
+
+
+********    executeApp    *********
+
+Starts a new application with appName (string) and configNum (int). You can also optionally specify
+initial position and size of the application window that you pass in as a tuple of integers.
+If the application itself requires some command line arguments during startup, those can be
+specified as well with the optionalArgs parameter (string).
+Shareable parameter is used when you want to run the application through sageBridge which
+means that it can be shared among other displays. If False it will run the app locally.
+Returns: the new status of all the apps in the same format as getAppStatus
+        (sleeps 2 seconds before returning it to ensure that the datastructure was updated
+         by the messages from SAGE about the new app)
+Returns: -1 if failed for whatever reason
+
+
+
+********    getAllAppID    *********
+
+Returns all the app ID currently running on SAGE
+
+
+
+********    getAppList    *********
+
+Returns: a list (strings) of app names available for running
+Returns: -1 if failed for whatever reason
+
+
+
+********    getAppStatus    *********
+
+If called without parameters it will return the status for all currently running applications.
+If called with appId parameter it will return the status just for that application.
+Returns: a hash where the key is appId (string) and the value is a list of app status:
+        [string appName, int appId, int left, int right, int bottom,
+         int top, int sailID, int zValue, int configNum, string title]
+Returns: -1 if failed for whatever reason
+
+
+
+********    getDisplayInfo    *********
+
+Returns: a list (integers): [totalNumTiles, numTilesX, numTilesY, totalWidth,
+                             totalHeight, tileWidth, tileHeight]
+Returns: -1 if failed for whatever reason
+
+
+
+********    getZValues    *********
+
+Returns: a list (integers) of z values [numChanges, appId, zValue, appId, zValue ....]
+Returns: -1 if failed for whatever reason
+
+
+
+********    moveWindow    *********
+
+Moves a window to the specified location (absolute position) in tiled display coordinates.
+The x,y is interpreted as the lower left corner of the application.
+All parameters are integers.
+Returns: 1 if successful.
+Returns: -1 if failed for whatever reason.
+
+
+
+********    resizeWindow    *********
+
+Resizes a window to the specified size in tiled display coordinates.
+The lower left corner of the display is considered 0,0.
+All parameters are integers.
+Returns: 1 if successful.
+Returns: -1 if failed for whatever reason.
+
+
+
+********    shareApp    *********
+
+Sends a request to fsManager to share the specified application to the specified display
+Parameters: - appId of the application you want to share
+            - ip address and port number of the machine to stream to
+Returns: 1 if succeeded
+Returns: -1 if failed for whatever reason

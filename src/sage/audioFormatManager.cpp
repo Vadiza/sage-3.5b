@@ -1,0 +1,93 @@
+/******************************************************************************
+ * SAGE - Scalable Adaptive Graphics Environment
+ *
+ * Module   :  audioFormatManager.cpp
+ *   Author   :   Hyejung Hur
+ *   Description:   Code file for
+ *
+ * Copyright (C) 2004 Electronic Visualization Laboratory,
+ * University of Illinois at Chicago
+ *
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *  * Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  * Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following disclaimer
+ *    in the documentation and/or other materials provided with the distribution.
+ *  * Neither the name of the University of Illinois at Chicago nor
+ *    the names of its contributors may be used to endorse or promote
+ *    products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * Direct questions, comments etc about SAGE to bijeong@evl.uic.edu or
+ * http://www.evl.uic.edu/cavern/forum/
+ *
+ ***************************************************************************************************************************/
+
+#include "audioFormatManager.h"
+#include "wavConverter.h"
+
+audioFormatManager::audioFormatManager()
+{
+  converterList.clear();
+}
+
+
+audioFormatManager::~audioFormatManager()
+{
+}
+
+
+audioConverter* audioFormatManager::createConverter(char* filename, FILE* fp)
+{
+  int len = strlen(filename);
+  int i=0, j=0;
+  char tag[25];
+  for(i =0; i <25 ; i++) tag[i] = '\0';
+
+  for(i=len-1; i >= 0; i--, j++) {
+    if(filename[i] == '.') {
+      break;
+    }
+  }
+
+  if(i > 0) {
+    j=i+1;
+    i =0;
+    for(; j < len; j++, i++) {
+      tag[i] = filename[j];
+    }
+  }
+
+  std::cout << " audioFormatManager::createConverter: " << tag << " : " << filename << std::endl;
+  int result;
+  if( (strcmp(tag, "wav") ==0) || (strcmp(tag, "wave")==0) ) {
+    wavConverter* object = new wavConverter();
+    result = object->init(fp);
+    if(result < 0) {
+      delete object;
+      object = NULL;
+    }
+    else {
+      converterList.push_back(object);
+    }
+    return object;
+  }
+  return NULL;
+
+}

@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sail", "sail\sail.vcproj", "{7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uiConsole", "uiConsole\uiConsole.vcproj", "{8322D374-1A53-4502-90F6-98A39EAB95AF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E} = {7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fsManager", "fsManager\fsManager.vcproj", "{889CDAB8-1988-4CA5-93DB-C127D098BA11}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E} = {7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "checker", "checker\checker.vcproj", "{170D8F92-1B37-4800-9E01-DA21BAD380F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E} = {7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "atlantis", "atlantis\atlantis.vcproj", "{7203E16D-4B2B-4916-AF6F-725A3E815EDE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E} = {7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sageDisplayManager", "sageDisplayManager\sageDisplayManager.vcproj", "{7240DD8C-7249-4544-BA90-E27C49C28EBF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E} = {7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DecklinkCapture", "decklinkcapture\DecklinkCapture.vcproj", "{6694207C-BBE5-4E99-8069-8A6687CFF72A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E} = {7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E}
+	EndProjectSection
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SAGE", "install\install.vdproj", "{C6E5DCD4-9BDD-4794-929F-69B4C387017B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sageAudioManager", "sageAudioManager\sageAudioManager.vcproj", "{3507F292-DD39-4E3B-9FB6-0846E8D26AC7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E}.Debug|Win32.Build.0 = Debug|Win32
+		{7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E}.Release|Win32.ActiveCfg = Release|Win32
+		{7F4CDDAB-4C41-4D3F-978B-E946F48F1A0E}.Release|Win32.Build.0 = Release|Win32
+		{8322D374-1A53-4502-90F6-98A39EAB95AF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8322D374-1A53-4502-90F6-98A39EAB95AF}.Debug|Win32.Build.0 = Debug|Win32
+		{8322D374-1A53-4502-90F6-98A39EAB95AF}.Release|Win32.ActiveCfg = Release|Win32
+		{8322D374-1A53-4502-90F6-98A39EAB95AF}.Release|Win32.Build.0 = Release|Win32
+		{889CDAB8-1988-4CA5-93DB-C127D098BA11}.Debug|Win32.ActiveCfg = Debug|Win32
+		{889CDAB8-1988-4CA5-93DB-C127D098BA11}.Debug|Win32.Build.0 = Debug|Win32
+		{889CDAB8-1988-4CA5-93DB-C127D098BA11}.Release|Win32.ActiveCfg = Release|Win32
+		{889CDAB8-1988-4CA5-93DB-C127D098BA11}.Release|Win32.Build.0 = Release|Win32
+		{170D8F92-1B37-4800-9E01-DA21BAD380F6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{170D8F92-1B37-4800-9E01-DA21BAD380F6}.Debug|Win32.Build.0 = Debug|Win32
+		{170D8F92-1B37-4800-9E01-DA21BAD380F6}.Release|Win32.ActiveCfg = Release|Win32
+		{170D8F92-1B37-4800-9E01-DA21BAD380F6}.Release|Win32.Build.0 = Release|Win32
+		{7203E16D-4B2B-4916-AF6F-725A3E815EDE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7203E16D-4B2B-4916-AF6F-725A3E815EDE}.Debug|Win32.Build.0 = Debug|Win32
+		{7203E16D-4B2B-4916-AF6F-725A3E815EDE}.Release|Win32.ActiveCfg = Release|Win32
+		{7203E16D-4B2B-4916-AF6F-725A3E815EDE}.Release|Win32.Build.0 = Release|Win32
+		{7240DD8C-7249-4544-BA90-E27C49C28EBF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7240DD8C-7249-4544-BA90-E27C49C28EBF}.Debug|Win32.Build.0 = Debug|Win32
+		{7240DD8C-7249-4544-BA90-E27C49C28EBF}.Release|Win32.ActiveCfg = Release|Win32
+		{7240DD8C-7249-4544-BA90-E27C49C28EBF}.Release|Win32.Build.0 = Release|Win32
+		{6694207C-BBE5-4E99-8069-8A6687CFF72A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6694207C-BBE5-4E99-8069-8A6687CFF72A}.Debug|Win32.Build.0 = Debug|Win32
+		{6694207C-BBE5-4E99-8069-8A6687CFF72A}.Release|Win32.ActiveCfg = Release|Win32
+		{6694207C-BBE5-4E99-8069-8A6687CFF72A}.Release|Win32.Build.0 = Release|Win32
+		{C6E5DCD4-9BDD-4794-929F-69B4C387017B}.Debug|Win32.ActiveCfg = Debug
+		{C6E5DCD4-9BDD-4794-929F-69B4C387017B}.Debug|Win32.Build.0 = Debug
+		{C6E5DCD4-9BDD-4794-929F-69B4C387017B}.Release|Win32.ActiveCfg = Release
+		{3507F292-DD39-4E3B-9FB6-0846E8D26AC7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3507F292-DD39-4E3B-9FB6-0846E8D26AC7}.Debug|Win32.Build.0 = Debug|Win32
+		{3507F292-DD39-4E3B-9FB6-0846E8D26AC7}.Release|Win32.ActiveCfg = Release|Win32
+		{3507F292-DD39-4E3B-9FB6-0846E8D26AC7}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

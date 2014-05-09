@@ -1,0 +1,310 @@
+/******************************************************************************
+ * QUANTA - A toolkit for High Performance Data Sharing
+ * Copyright (C) 2003 Electronic Visualization Laboratory,
+ * University of Illinois at Chicago
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either Version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser Public License along
+ * with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ *
+ * Direct questions, comments etc about Quanta to cavern@evl.uic.edu
+ *****************************************************************************/
+
+#ifndef _QUANTAnet_remoteParallelFileIO32_c
+#define _QUANTAnet_remoteParallelFileIO32_c
+
+#include <QUANTA/QUANTAnet_perfMonitor_c.hxx>
+#include <QUANTA/QUANTAnet_extendedParallelTcp_c.hxx>
+#include <QUANTA/QUANTAnet_datapack_c.hxx>
+#include <QUANTA/QUANTAmisc_fileList_c.hxx>
+
+#ifdef WIN32
+#include <stdlib.h>
+#define MAXPATHLEN  MAX_PATH
+#else
+#include <sys/param.h>
+#endif
+
+/** This class acts as a server for performing remote upload and download of files.
+    First call the init() call and then inside a while loop call checkForNewRequests().
+    Use QUANTAnet_remoteParallelFileIOClient_c to connect to this server and perform the upload
+    and download operations.
+
+    Note: currently I am finding a strange behavior in threads that causes the
+    network I/O to improperly complete. Hence checkForNewRequests() currently
+    does not create a new thread for each client that makes an IO request. All
+    clients must wait in line.
+
+    @author cavern@evl
+
+    @version 2/22/2000
+
+*/
+class QUANTAnet_remoteParallelFileIOServer32_c {
+public:
+  /** Default port number to listen on.
+      Default is 7673.
+  */
+  static const int DEFAULT_PORT/* = 7673*/;
+
+  /// Create a thread to handle each client request.
+  static const int THREADED/* = 1*/;
+
+  /// Do not create a thread to handle each  client request.
+  static const int NON_THREADED/* = 0*/;
+
+  /// Initialize server.
+  int init(int incomingPort=QUANTAnet_remoteParallelFileIOServer32_c::DEFAULT_PORT,
+           char* neighborServer = NULL,
+           int neighborPort = QUANTAnet_remoteParallelFileIOServer32_c::DEFAULT_PORT,
+           int storeLocally = 1, int numOfSockets = 5);
+
+  /** Check for incoming requests.
+      Recommend doing this in a while loop.
+      @param threaded set this to THREADED or NON_THREADED.
+      Default is NON_THREADED.
+      Setting it to non-threaded will mean each request is
+      processed sequentially so any pending requests must
+      wait in the queue. Setting it to threaded means each
+      incoming request spawns a thread to handle the request.
+  */
+  void process(int threaded = QUANTAnet_remoteParallelFileIOServer32_c::NON_THREADED);
+
+  void setRemotePort(int port = QUANTAnet_remoteParallelFileIOServer32_c::DEFAULT_PORT) {
+    neighborPortNumber = port;
+  }
+  void setNeighborServer(char* ServerName);
+  void setStore(int StoreLocally) { store = StoreLocally; }
+
+  long getFileSize(FILE* readFile);
+
+  static const int TRANSFERSIZE/* = 30000*/;
+
+private:
+  QUANTAnet_extendedParallelTcpServer_c server;
+  char neighborServerName[MAXPATHLEN];
+  int neighborPortNumber;
+  int store;
+  int numberOfSockets;
+
+  static int getHostIPNumber(char* hostNameOrIP);
+  static void* threadHandler(void*);
+};
+
+/** Upload and download files to and from a remote server. This client is designed specifically to connect to QUANTAnet_remoteParallelFileIOServer32_c.
+ */
+class QUANTAnet_remoteParallelFileIOClient32_c {
+public:
+
+  //@{
+  /// Status ok
+  static const int OK/* = 1*/;
+
+  /// Status failed
+  static const int FAILED/* = 0*/;
+
+  /// Cannot connect to remote server.
+  static const int CANNOT_CONNECT/* = 2*/;
+
+  /// Cannot open local file for reading.
+  static const int CANNOT_READ_LOCAL_FILE/* = 3*/;
+
+  /// CAnnot write to local file.
+  static const int CANNOT_WRITE_LOCAL_FILE/* = 3*/;
+
+  /// Received invalid command from server.
+  static const int INVALID_COMMAND/* = 4*/;
+
+  /// Memory allocation error.
+  static const int MEM_ALLOC_ERR/* = 5*/;
+
+  /// Remote file error.
+  static const int FILE_ERROR/* = 6*/;
+
+  /// Earlier date/time
+  static const int EARLIER/* = 7*/;
+
+  /// Later date/time
+  static const int LATER/* = 8*/;
+
+  /// Same date/time
+  static const int SAME/* = 9*/;
+
+  //@}
+
+  QUANTAnet_remoteParallelFileIOClient32_c();
+
+  /// Set port number to connect to.
+  void setRemotePort(int port = QUANTAnet_remoteParallelFileIOServer32_c::DEFAULT_PORT);
+
+  /** Upload a file to the remote server. If upload fails because it is unable to
+      write to the remote server or a network error occurs this function will return with a FAILED.
+      @param ipAddress is IP address of remote server.
+      @param localFileName is local file to send.
+      @param remoteFileName is filename to use at the remote end.
+      @param numberOfSockets is the number of sockets you want to use in parallel to transfer the file. If you don't specify any number at all, 5 sockets will be used in parallel.
+      @return OK, FAILED< CANNOT_READ_LOCAL_FILE, INVALID_COMMAND, CANNOT_CONNECT
+  */
+  int upload(char* ipAddress,char* localFileName, char* remoteFileName, int numberOfSockets = 5);
+
+  /** Download a file from the remote server. If the remote file is not found or
+      a network error occurs, this function will return with a failed.
+      @param ipAddress is IP address of remote server.
+      @param localFileName is local file write to.
+      @param remoteFileName is remote file to get.
+      @param numberOfSockets is the number of sockets you want to use in parallel to transfer the file. If you don't specify any number at all, 5 sockets will be used in parallel.
+      @return OK, FAILED, CANNOT_WRITE_LOCAL_FILE, INVALID_COMMAND, CANNOT_CONNECT
+  */
+  int download(char* ipAddress, char* localFilename, char* remoteFileName, int numberOfSockets = 5);
+
+  /** Retrieve a remote file's date and time stamp. Date/Time is in GMT.
+      @param ipAddress is IP address of remote server.
+      @param remoteFileName is remote file to get.
+      @param numberOfSockets is the number of sockets you want to use in parallel to transfer the file. If you don't specify any number at all, 1 socket will be used.
+      @return OK, FAILED - if command failed; FILE_ERROR - if remote file cannot be accessed.
+      Values of day, month, year, etc will return all -1s if FILE_ERROR occurs.
+
+  */
+  int getRemoteDateTime(char* ipAddress, char* remoteFileName,
+                        int *remDay, int *remMon, int *remYear,
+                        int* remHour, int* remMin, int* remSec,
+                        int numberOfSockets = 1);
+#if (defined(__sgi) || defined(linux) || defined(sun))
+  /** Retreive a list of files in a given path on a remote machine. The size of the files, the file size, the time stamp and the object type (whether a directory or a file name) are obtained. Please note that this API is currently not available on Windows and Free BSD systems, but available on SGI, Linux and Sun.
+      @param ipAddress is the IP address of the remote machine
+      @param remotePath is the absolute path name on a remote machine
+      @param fileList is a pointer to the file list which has been populated (Note that memory is allocated for this fileList and the programmer need not allocate memory before calling the function)
+      @param noObjects is pointer(handle) to the number of files in the given path
+      @param doRecursion specifies whether all files of sub-directories should be listed recursively - accepted values are QUANTAmisc_fileList_c::SKIP_RECURSION and QUANTAmisc_fileList_c::LIST_RECURSIVELY
+      @param linkTraversal Flag to specify whether links have to be traversed (by default it is not)- accepted values are QUANTAmisc_fileList_c::TRAVERSE_LINKS and QUANTAmisc_fileList_c::DO_NOT_TRAVERSE_LINKS
+      @param numberOfSockets The number of sockets you want to use in parallel to transfer the file. If you don't specify any number at all, 1 socket will be used.
+      @return OK, FAILED, FILE ERROR, CANNOT_CONNECT, MEM_ALLOC_ERROR
+  */
+  int getRemoteFileList(char* ipAddress, char* remotePath, QUANTAmisc_fileInfo_c*& fileList, int* noObjects, int doRecursion = QUANTAmisc_fileList_c::SKIP_RECURSION, int linkTraversal = QUANTAmisc_fileList_c::DO_NOT_TRAVERSE_LINKS, int numberOfSockets = 1);
+#endif
+
+  /** Retrieve a local file's date and time stamp. Date/Time is in GMT.
+      @return OK or FILE_ERROR - if local file could not be accessed.
+      Values of day, month, year, etc will return all -1s if FILE_ERROR occurs.
+  */
+  static int getLocalDateTime(char* filename,
+                              int *day,
+                              int *month,
+                              int *year,
+                              int *hour,
+                              int *minute,
+                              int *second);
+
+  /** Compare time/date1 with time/date2.
+      @return EARLIER - if time/date1 is earlier than time/date2
+      LATER - if time/date1 is later than time/date2
+      SAME - if time/date1 and 2 are same.
+  */
+
+  int compareDateTime(int day1, int month1, int year1,
+                      int hour1, int minute1, int second1,
+                      int day2, int month2, int year2,
+                      int hour2, int minute2, int second2);
+
+  //Functions added for performance monitoring interface
+
+  /**
+     Displays the resultant statistics instantaneously in the netlogger format - this should be typically done after a read/write is done  a network.
+
+     Also, it should be noted that a showStats call should be made at the end of atleast one send and receive for two-way information (the same applies for logStats and sendStats)
+
+     @param streamInfo
+     A label describing the stream that is being monitored.
+
+     @param comment
+     A comment on the event that marks the time at which the stream is being monitored
+  */
+
+  void showStats(char* streamInfo, char* comment);
+
+  /**
+     This logs performance statistics in a file. The user opens a file and passes the file pointer with this function and results of monitoring are written into the logfile.
+
+     @param streamInfo
+     A label describing the stream that is being monitored.
+
+     @param comment
+     A comment on the event that marks the time at which the stream is being monitored
+
+     @param filePtr
+     File pointer to the file in which the results of monitoring are to be stored
+
+     @return
+     Either QUANTAnet_perfMonitor_c::OK or QUANTAnet_perfMonitor_c::FAILED
+  */
+
+  int logStats(char* streamInfo, char* comment, FILE* filePtr);
+
+  /**
+     Sends the performance statistics to a remote perfdaemon -for further analysis of the monitored data - the initSendStats API should be called first, before calling a sendStats (In order to connect to the perfdaemon initially)
+
+     @param streamInfo
+     A label describing the stream that is being monitored.
+
+     @param comment
+     A comment on the event that marks the time at which the stream is being monitored
+
+     @return
+     Either QUANTAnet_perfMonitor_c::OK or QUANTAnet_perfMonitor_c::FAILED
+
+  */
+
+  int sendStats(char* streamInfo, char* comment);
+
+  /**
+     Initialize sendStats - provide the IP of the perfDaemon and an optional port number to connect to. This should be done initially  before using the sendStats API.
+
+     @param monitorClientIP
+     IP address of the perfDameon to connect to
+
+     @param port
+     Port number at which the perfDaemon is running -this is optional. The default port number for perfDaemon is 9500 -so a different port number has to be specified if the perfDaemon is running ona different port.
+
+     @return
+     Either QUANTAnet_perfMonitor_c::OK or QUANTAnet_perfMonitor_c::FAILED
+  */
+
+  int initSendStats(char* monitorClientIP, int port = PERF_DAEMON_DEFAULT_PORT);
+
+  /**
+     Properly delete the perfDaemonClient after sendStats is done
+  */
+
+  void exitSendStats();
+
+
+private:
+  int remotePort;
+  QUANTAnet_extendedParallelTcpClient_c client;
+  QUANTAnet_perfMonitor_c pmonitor;   //for performance monitoring
+};
+
+/*
+  FORMAT:There are no spaces between fields
+  CLIENT -> SERVER
+  u fileNameLen fileName dataSize data
+  d fileNameLen fileName
+
+  SERVER->CLIENT
+  d dataSize data
+
+
+  What if download file not found?
+  need to delete thread somehow
+*/
+#endif

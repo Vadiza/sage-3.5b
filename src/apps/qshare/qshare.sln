@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qshare", "qshare.vcproj", "{F4057A98-7444-366A-8797-8922F87DCDD0}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "qshare_install", "qshare_install\qshare_install.vdproj", "{55324C5B-E96E-4A3A-9879-39FDD0853D7F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4057A98-7444-366A-8797-8922F87DCDD0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F4057A98-7444-366A-8797-8922F87DCDD0}.Debug|Win32.Build.0 = Debug|Win32
+		{F4057A98-7444-366A-8797-8922F87DCDD0}.Release|Win32.ActiveCfg = Release|Win32
+		{F4057A98-7444-366A-8797-8922F87DCDD0}.Release|Win32.Build.0 = Release|Win32
+		{55324C5B-E96E-4A3A-9879-39FDD0853D7F}.Debug|Win32.ActiveCfg = Debug
+		{55324C5B-E96E-4A3A-9879-39FDD0853D7F}.Debug|Win32.Build.0 = Debug
+		{55324C5B-E96E-4A3A-9879-39FDD0853D7F}.Release|Win32.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cd $SAGE_DIRECTORY/bin
+
+# Use the 2.4 version of python if running in Rocks environment
+PYTHONEXE=python
+#[ -x /opt/rocks/bin/python ] && PYTHONEXE=/opt/rocks/bin/python
+
+# run sageLauncher differently if linux or if macos
+if [ `uname` = "Linux" ]
+then
+    $PYTHONEXE sageLauncher.pyc $1
+else
+    pythonw sageLauncher.pyc $1
+fi
+

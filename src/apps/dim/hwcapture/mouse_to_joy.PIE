@@ -1,0 +1,139 @@
+// A script for converting 5 mouse-like devices on the system to 5 virtual joysticks
+// For use with the device manager for SAGE
+//
+// Author: Ratko Jagodic
+// Date:   April, 2007
+//
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+// minimze upon startup
+//if var.minimized == 0
+//   MinimizePIE()
+//   var.minimized = 1
+//end if
+
+
+// when converting to joystick -1 <-> 1 axis values, we will
+// blank out the region -drift <-> +drift and start mapping
+// the values at +-var.drift up to +-1
+var.drift= 0.001 //001
+var.range= 400
+
+// mouse1 <-> ppjoy1
+   var.dx_1 = RemoveUnits(mouse1.DirectInputX) - var.oldX_1
+   var.dy_1 = RemoveUnits(mouse1.DirectInputY) - var.oldY_1
+
+   var.oldX_1 = RemoveUnits(mouse1.DirectInputX)
+   var.oldY_1 = RemoveUnits(mouse1.DirectInputY)
+   PPJoy1.analog0 = MapRange(var.dx_1, -var.range,var.range, -1,1)
+   PPJoy1.analog1 = MapRange(var.dy_1, -var.range,var.range, -1,1)
+
+   // scroll wheel emulated through buttons
+   var.numSteps = (mouse1.DirectInputZ - var.oldZ_1)/120
+   if var.numSteps > 0
+      PPJoy1.digital3 = var.numSteps
+   else if var.numSteps < 0
+      PPJoy1.digital4 = abs(var.numSteps)
+   else
+      PPJoy1.digital3 = 0
+      PPJoy1.digital4 = 0
+   end if
+   var.oldZ_1 = mouse1.DirectInputZ
+
+   PPJoy1.digital0 = mouse1.LeftButton
+   PPJoy1.digital1 = mouse1.RightButton
+   PPJoy1.digital2 = mouse1.MiddleButton
+   mouse1.DirectInputX = 0
+   mouse1.DirectInputY = 0
+
+
+// mouse2 <-> ppjoy2
+   var.dx_2 = RemoveUnits(mouse2.DirectInputX) - var.oldX_2
+   var.dy_2 = RemoveUnits(mouse2.DirectInputY) - var.oldY_2
+
+   var.oldX_2 = RemoveUnits(mouse2.DirectInputX)
+   var.oldY_2 = RemoveUnits(mouse2.DirectInputY)
+   PPJoy2.analog0 = MapRange(var.dx_2, -var.range,var.range, -1,1)
+   PPJoy2.analog1 = MapRange(var.dy_2, -var.range,var.range, -1,1)
+
+   // scroll wheel emulated through buttons
+   var.numSteps = (mouse2.DirectInputZ - var.oldZ_2)/120
+   if var.numSteps > 0
+      PPJoy2.digital3 = var.numSteps
+   else if var.numSteps < 0
+      PPJoy2.digital4 = abs(var.numSteps)
+   else
+      PPJoy2.digital3 = 0
+      PPJoy2.digital4 = 0
+   end if
+   var.oldZ_2 = mouse2.DirectInputZ
+
+   PPJoy2.digital0 = mouse2.LeftButton
+   PPJoy2.digital1 = mouse2.RightButton
+   PPJoy2.digital2 = mouse2.MiddleButton
+   mouse2.DirectInputX = 0
+   mouse2.DirectInputY = 0
+
+
+ //mouse3 <-> ppjoy3
+   var.dx_3 = RemoveUnits(mouse3.DirectInputX) - var.oldX_3
+   var.dy_3 = RemoveUnits(mouse3.DirectInputY) - var.oldY_3
+
+   var.oldX_3 = RemoveUnits(mouse3.DirectInputX)
+   var.oldY_3 = RemoveUnits(mouse3.DirectInputY)
+   PPJoy3.analog0 = MapRange(var.dx_3, -var.range,var.range, -1,1)
+   PPJoy3.analog1 = MapRange(var.dy_3, -var.range,var.range, -1,1)
+
+   // scroll wheel emulated through buttons
+   var.numSteps = (mouse3.DirectInputZ - var.oldZ_3)/120
+   if var.numSteps > 0
+      PPJoy3.digital3 = var.numSteps
+   else if var.numSteps < 0
+      PPJoy3.digital4 = abs(var.numSteps)
+   else
+      PPJoy3.digital3 = 0
+      PPJoy3.digital4 = 0
+   end if
+   var.oldZ_3 = mouse3.DirectInputZ
+
+   PPJoy3.digital0 = mouse3.LeftButton
+   PPJoy3.digital1 = mouse3.RightButton
+   PPJoy3.digital2 = mouse3.MiddleButton
+   mouse3.DirectInputX = 0
+   mouse3.DirectInputY = 0
+
+
+
+// mouse4 <-> ppjoy4
+   var.dx_4 = RemoveUnits(mouse4.DirectInputX) - var.oldX_4
+   var.dy_4 = RemoveUnits(mouse4.DirectInputY) - var.oldY_4
+
+   var.oldX_4 = RemoveUnits(mouse4.DirectInputX)
+   var.oldY_4 = RemoveUnits(mouse4.DirectInputY)
+   PPJoy4.analog0 = MapRange(var.dx_4, -var.range,var.range, -1,1)
+   PPJoy4.analog1 = MapRange(var.dy_4, -var.range,var.range, -1,1)
+
+   // scroll wheel emulated through buttons
+   var.numSteps = (mouse4.DirectInputZ - var.oldZ_4)/120
+   if var.numSteps > 0
+      PPJoy4.digital3 = var.numSteps
+   else if var.numSteps < 0
+      PPJoy4.digital4 = abs(var.numSteps)
+   else
+      PPJoy4.digital3 = 0
+      PPJoy4.digital4 = 0
+   end if
+   var.oldZ_4 = mouse4.DirectInputZ
+
+   PPJoy4.digital0 = mouse4.LeftButton
+   PPJoy4.digital1 = mouse4.RightButton
+   PPJoy4.digital2 = mouse4.MiddleButton
+   mouse4.DirectInputX = 0
+   mouse4.DirectInputY = 0
+
+
+mouse.Swallow = true
+
+
+

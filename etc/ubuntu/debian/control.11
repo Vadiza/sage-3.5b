@@ -1,0 +1,11 @@
+Source: sage
+Section: graphics
+Priority: optional
+Maintainer: Luc Renambot <renambot@uic.edu>
+Build-Depends: debhelper, libreadline5, libreadline5-dev, libglu1-mesa, libglu1-mesa-dev, libsdl1.2debian, libsdl-dev, libsdl-ttf2.0-0, libsdl-ttf2.0-dev, libxmu6, libxmu-dev, freeglut3, freeglut3-dev, libxi6, libxi-dev, libmagickwand3, libmagickcore-dev, libmagickwand-dev, libjpeg62, libjpeg62-dev, libpoppler-dev, libpoppler-glib-dev, poppler-utils, libvncserver-dev, libglew1.5-dev, libqt4-dev, qt4-qmake, yasm
+
+Package: sage
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, debhelper, libreadline5, libglu1-mesa, libsdl1.2debian, libsdl-ttf2.0-0, libxmu6, freeglut3, libxi6, libmagickwand3, libjpeg62, libpoppler-glib6, libpoppler13, poppler-utils, libvncserver0, libglew1.5, python-wxgtk2.8, python-pygame, libqtcore4, libqtgui4
+Description: SAGE Scalable Adaptive Graphics Environment
+ SAGE is a graphics streaming architecture for supporting collaborative scientific visualization environments with potentially hundreds of megapixels of contiguous display resolution. In collaborative scientific visualization, it is crucial to share high-resolution imagery as well as high-definition video among groups of collaborators at local or remote sites. The network-centered architecture of SAGE allows collaborators to simultaneously run various applications (such as 3D rendering, remote desktop, video streams and 2D maps) on local or remote clusters, and share them by streaming the pixels of each application over ultra-high-speed networks to large tiled displays. SAGE streaming architecture is designed so that the output of arbitrary M by N pixel rendering cluster nodes can be streamed to X by Y pixel display screens, allowing user-definable layouts on the display. The dynamic pixel routing capability of SAGE lets users freely move and resize each application's imagery over tiled displays in run-time, tightly synchronizing the multiple visualization streams to form a single stream.  

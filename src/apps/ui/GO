@@ -1,0 +1,13 @@
+#!/bin/sh
+
+rm -fr sageui
+mkdir prefs
+
+python setup.py py2app --site-packages -a
+
+# copy 32bit app
+cp /Library/Python/2.7/site-packages/py2app-0.6.3-py2.7.egg/py2app/apptemplate/prebuilt/main-i386 sageui/sageui.app/Contents/MacOS/sageui
+
+echo 
+echo "======  DONE! "
+echo 

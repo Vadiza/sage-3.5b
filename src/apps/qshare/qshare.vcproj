@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="9,00"
+	Name="qshare"
+	ProjectGUID="{F4057A98-7444-366A-8797-8922F87DCDD0}"
+	Keyword="Qt4VSv1.0">
+	<Platforms>
+		<Platform
+			Name="Win32" />
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="."
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			ConfigurationType="1"
+			IntermediateDirectory="debug\"
+			UseOfMfc="0">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="&quot;c:\Qt\4.7.0\include\QtCore&quot;,&quot;c:\Qt\4.7.0\include\QtGui&quot;,&quot;c:\Qt\4.7.0\include&quot;,&quot;FastDXT&quot;,&quot;..\..\include&quot;,&quot;..\..\win32\include&quot;,&quot;c:\Qt\4.7.0\include\ActiveQt&quot;,&quot;debug&quot;,&quot;.&quot;,c:\Qt\4.7.0\mkspecs\win32-msvc2008"
+				AdditionalOptions="-Zm200 -w34100 -w34189"
+				AssemblerListingLocation="debug\"
+				BufferSecurityCheck="false"
+				DebugInformationFormat="3"
+				ExceptionHandling="1"
+				GeneratePreprocessedFile="0"
+				ObjectFile="debug\"
+				Optimization ="4"
+				PreprocessorDefinitions="DXT_INTR,_CRT_SECURE_NO_WARNINGS,_WINDOWS,UNICODE,WIN32,QT_LARGEFILE_SUPPORT,QT_DLL,QT_GUI_LIB,QT_CORE_LIB,QT_THREAD_SUPPORT"
+				ProgramDataBaseFileName=".\"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="true"
+				SuppressStartupBanner="true"
+				TreatWChar_tAsBuiltInType="false"
+				WarningLevel="3" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="c:\Qt\4.7.0\lib\qtmaind.lib ../../lib\sail.lib ../../win32/lib\pthread.lib Ws2_32.lib ../../win32/lib\quanta.lib c:\Qt\4.7.0\lib\QtGuid4.lib c:\Qt\4.7.0\lib\QtCored4.lib"
+				AdditionalLibraryDirectories="c:\Qt\4.7.0\lib,../../lib,../../win32/lib"
+				AdditionalOptions="&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot;"
+				GenerateDebugInformation="true"
+				IgnoreImportLibrary="true"
+				LinkTimeCodeGeneration="0"
+				OutputFile="debug\qshare.exe"
+				ProgramDatabaseFile=""
+				SubSystem="2"
+				SuppressStartupBanner="true" />
+			<Tool
+				Name="VCMIDLTool"
+				DefaultCharType="0"
+				EnableErrorChecks="1"
+				WarningLevel="0" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="DXT_INTR,_CRT_SECURE_NO_WARNINGS,_WINDOWS,UNICODE,WIN32,QT_LARGEFILE_SUPPORT,QT_DLL,QT_GUI_LIB,QT_CORE_LIB,QT_THREAD_SUPPORT,_DEBUG" />
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="."
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			ConfigurationType="1"
+			IntermediateDirectory="release\"
+			UseOfMfc="0">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="&quot;c:\Qt\4.7.0\include\QtCore&quot;,&quot;c:\Qt\4.7.0\include\QtGui&quot;,&quot;c:\Qt\4.7.0\include&quot;,&quot;FastDXT&quot;,&quot;..\..\include&quot;,&quot;..\..\win32\include&quot;,&quot;c:\Qt\4.7.0\include\ActiveQt&quot;,&quot;release&quot;,&quot;.&quot;,c:\Qt\4.7.0\mkspecs\win32-msvc2008"
+				AdditionalOptions="-Zm200 -w34100 -w34189"
+				AssemblerListingLocation="release\"
+				BufferSecurityCheck="false"
+				DebugInformationFormat="0"
+				ExceptionHandling="1"
+				GeneratePreprocessedFile="0"
+				ObjectFile="release\"
+				Optimization ="2"
+				PreprocessorDefinitions="DXT_INTR,_CRT_SECURE_NO_WARNINGS,QT_NO_DEBUG,NDEBUG,_WINDOWS,UNICODE,WIN32,QT_LARGEFILE_SUPPORT,QT_DLL,QT_NO_DEBUG,QT_GUI_LIB,QT_CORE_LIB,QT_THREAD_SUPPORT,NDEBUG"
+				ProgramDataBaseFileName=".\"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="true"
+				SuppressStartupBanner="true"
+				TreatWChar_tAsBuiltInType="false"
+				WarningLevel="3" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="c:\Qt\4.7.0\lib\qtmain.lib ../../lib\sail.lib ../../win32/lib\pthread.lib Ws2_32.lib ../../win32/lib\quanta.lib c:\Qt\4.7.0\lib\QtGui4.lib c:\Qt\4.7.0\lib\QtCore4.lib"
+				AdditionalLibraryDirectories="c:\Qt\4.7.0\lib,../../lib,../../win32/lib"
+				AdditionalOptions="&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot;"
+				GenerateDebugInformation="false"
+				IgnoreImportLibrary="true"
+				LinkIncremental="1"
+				LinkTimeCodeGeneration="0"
+				OutputFile="release\qshare.exe"
+				ProgramDatabaseFile=""
+				SubSystem="2"
+				SuppressStartupBanner="true" />
+			<Tool
+				Name="VCMIDLTool"
+				DefaultCharType="0"
+				EnableErrorChecks="1"
+				WarningLevel="0" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="DXT_INTR,_CRT_SECURE_NO_WARNINGS,QT_NO_DEBUG,NDEBUG,_WINDOWS,UNICODE,WIN32,QT_LARGEFILE_SUPPORT,QT_DLL,QT_NO_DEBUG,QT_GUI_LIB,QT_CORE_LIB,QT_THREAD_SUPPORT" />
+		</Configuration>
+	</Configurations>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			<File
+				RelativePath="capturewindow.cpp" />
+			<File
+				RelativePath="FastDXT\dxt.cpp" />
+			<File
+				RelativePath="FastDXT\intrinsic.cpp" />
+			<File
+				RelativePath="FastDXT\libdxt.cpp" />
+			<File
+				RelativePath="main.cpp" />
+			<File
+				RelativePath="FastDXT\util.cpp" />
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			<File
+				RelativePath="capturewindow.h">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						AdditionalDependencies="C:\Qt\4.7.0\bin\moc.exe;capturewindow.h"
+						CommandLine="C:\Qt\4.7.0\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.7.0\include\QtCore&quot; -I&quot;c:\Qt\4.7.0\include\QtGui&quot; -I&quot;c:\Qt\4.7.0\include&quot; -I&quot;FastDXT&quot; -I&quot;..\..\include&quot; -I&quot;..\..\win32\include&quot; -I&quot;c:\Qt\4.7.0\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;.&quot; -Ic:\Qt\4.7.0\mkspecs\win32-msvc2008 -D_MSC_VER=1500 -DWIN32 capturewindow.h -o debug\moc_capturewindow.cpp"
+						Description="MOC capturewindow.h"
+						Outputs="debug\moc_capturewindow.cpp"
+						Path="c:\Qt\4.7.0\bin" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						AdditionalDependencies="C:\Qt\4.7.0\bin\moc.exe;capturewindow.h"
+						CommandLine="C:\Qt\4.7.0\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.7.0\include\QtCore&quot; -I&quot;c:\Qt\4.7.0\include\QtGui&quot; -I&quot;c:\Qt\4.7.0\include&quot; -I&quot;FastDXT&quot; -I&quot;..\..\include&quot; -I&quot;..\..\win32\include&quot; -I&quot;c:\Qt\4.7.0\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;.&quot; -Ic:\Qt\4.7.0\mkspecs\win32-msvc2008 -D_MSC_VER=1500 -DWIN32 capturewindow.h -o release\moc_capturewindow.cpp"
+						Description="MOC capturewindow.h"
+						Outputs="release\moc_capturewindow.cpp"
+						Path="c:\Qt\4.7.0\bin" />
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Generated Files"
+			Filter="cpp;c;cxx;moc;h;def;odl;idl;res;"
+			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}">
+			<File
+				RelativePath="debug\moc_capturewindow.cpp">
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true" />
+			</File>
+			<File
+				RelativePath="release\moc_capturewindow.cpp">
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true" />
+			</File>
+			<File
+				RelativePath="debug\qsharerc.res">
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true" />
+			</File>
+			<File
+				RelativePath="release\qsharerc.res">
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true" />
+			</File>
+			<File
+				RelativePath="ui_capturewindow.h" />
+		</Filter>
+		<Filter
+			Name="Form Files"
+			Filter="ui"
+			UniqueIdentifier="{99349809-55BA-4b9d-BF79-8FDBB0286EB3}"
+			ParseFiles="false">
+			<File
+				RelativePath="capturewindow.ui">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						AdditionalDependencies="C:\Qt\4.7.0\bin\uic.exe;capturewindow.ui"
+						CommandLine="C:\Qt\4.7.0\bin\uic.exe capturewindow.ui -o ui_capturewindow.h"
+						Description="UIC capturewindow.ui"
+						Outputs="ui_capturewindow.h"
+						Path="c:\Qt\4.7.0\bin" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						AdditionalDependencies="C:\Qt\4.7.0\bin\uic.exe;capturewindow.ui"
+						CommandLine="C:\Qt\4.7.0\bin\uic.exe capturewindow.ui -o ui_capturewindow.h"
+						Description="UIC capturewindow.ui"
+						Outputs="ui_capturewindow.h"
+						Path="c:\Qt\4.7.0\bin" />
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<File
+			RelativePath="qsharerc.rc" />
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

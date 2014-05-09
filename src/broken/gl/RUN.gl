@@ -1,0 +1,8 @@
+#!/bin/sh
+
+export LD_PRELOAD=$SAGE_DIRECTORY/bin/libmyGL.so
+export SAGE_GL=/usr/lib64/libGL.so.1
+$*
+export -n LD_PRELOAD
+
+

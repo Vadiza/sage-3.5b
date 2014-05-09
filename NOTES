@@ -1,0 +1,48 @@
+# SAGE
+  ./fsManager
+  python appLauncher/appLauncher.py -v 
+  python ../dim/dim.py -v
+  cd fileServer && python fileServer.py -v
+
+# SAGE POINTER
+  # Same as pointer.py
+  cd ../dim/hwcapture && python localPointer.py 127.0.0.1
+
+  cd sagePointer-linux/pointer && ./pointer 127.0.0.1 
+  cd sagePointer-linux/sagePointer && ./sagePointer.py
+
+# SAGE UI
+  cd ui && python sageui.py
+
+
+# CLIENT PORTS
+  pointer->hwCapture port=20005
+    managerConn.py:60
+
+  sagePointer->hwCapture port=20005
+    managerConn.py:60
+
+  dim->hwCapture port=20005
+    hwcapture.py:60
+    listener.py:93
+
+    sagePointer.py:84=20002
+
+
+
+
+# SERVER PORTS
+  fsManager
+    20002
+    22000 # change in stdtile
+    22001 # change in stdtile+1
+    12000
+
+    for pointer
+    20005
+    8800
+    8802
+    19010
+
+  display
+    22000 (file share)

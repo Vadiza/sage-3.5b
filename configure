@@ -1,0 +1,72 @@
+#!/bin/sh
+
+ret=$PWD
+
+make distclean
+rm -rf obj
+
+# sam
+echo "###"
+echo "### src/sam"
+echo "###"
+cd src/sam && ./configure
+cd $ret
+
+# sage (needed by apps)
+echo "###"
+echo "### src/sage"
+echo "###"
+make -j 8 sage
+
+# qshare
+echo "###"
+echo "### src/apps/qshare"
+echo "###"
+cd src/apps/qshare && qmake && make clean
+cd $ret
+
+# decklinkcapture
+echo "###"
+echo "### src/apps/DecklinkCapture"
+echo "###"
+cd src/apps/DecklinkCapture && qmake && make clean
+cd $ret
+
+# webcam
+echo "###"
+echo "### src/apps/webcam"
+echo "###"
+cd src/apps/webcam && ./configure
+cd $ret
+
+## ultragrid
+echo "###"
+echo "### src/apps/ultragrid-1.1"
+echo "###"
+cd src/apps/ultragrid-1.1
+make distclean
+./autogen.sh --prefix=$ret --with-sage=$ret
+make clean
+cd $ret
+
+## mplayer
+echo "###"
+echo "### src/apps/mplayer"
+echo "###"
+cd src/apps/mplayer
+rm -rf build
+mkdir build
+make distclean
+rm -rf ffmpeg/mp_auto_pull
+os=`uname`
+if [ "$os" == "Darwin" ]; then
+    ./configure --prefix=$ret --disable-x264  --enable-menu --enable-sam --enable-runtime-cpudetection --disable-libdvdcss-internal
+else
+    ./configure --prefix=$ret --disable-x264  --enable-menu --enable-sam --enable-runtime-cpudetection
+fi
+make clean
+cd $ret
+
+echo ""
+echo "Done"
+echo ""

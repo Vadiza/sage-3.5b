@@ -1,0 +1,28 @@
+#!/bin/sh
+
+make clean
+rm -fr qshare.app
+rm -fr qshare
+rm -f qshare.zip
+
+qmake -spec macx-g++  -config debug
+
+make -j 2
+
+macdeployqt qshare.app
+
+#cp $SAGE_DIRECTORY/lib/libsail.dylib qshare.app/Contents/Frameworks
+#cp $SAGE_DIRECTORY/lib/libquanta.dylib qshare.app/Contents/Frameworks
+cp ../../lib/libsail.dylib qshare.app/Contents/Frameworks
+cp ../../lib/libquanta.dylib qshare.app/Contents/Frameworks
+
+install_name_tool -id @executable_path/../Frameworks/libquanta.dylib qshare.app/Contents/Frameworks/libquanta.dylib
+install_name_tool -change libquanta.dylib @executable_path/../Frameworks/libquanta.dylib qshare.app/Contents/Frameworks/libsail.dylib
+#install_name_tool -id @executable_path/../Frameworks/libsail.dylib. qshare.app/Contents/Frameworks/libsail.dylib
+
+mkdir qshare
+cp -r qshare.app qshare
+cp qshare.conf qshare
+cp *.png qshare
+zip -r -3 qshare qshare
+

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+/bin/rm -fr build
+mkdir build
+
+make distclean
+
+./configure --prefix=`pwd`/build --disable-x264 --enable-menu --enable-sam --enable-runtime-cpudetection
+
+make clean
+make -j 12
