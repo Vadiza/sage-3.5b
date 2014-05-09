@@ -103,7 +103,11 @@
 	    (1) execute make tarball in SAGE_DIRECTORY
 		    (a) with a multi-core machine, try: make -j 4
 		    (a) with a SSD drive, try: make -j 12
-	    (2) if you get errors, check include paths and library paths in make files in subdirectories	
+	    (2) if you get errors, check include paths and library paths in make files in subdirectories
+	To clean
+	    make clean - wipes the objects for rebuild.
+	    make distclean -  wipes all compiled and generated files.	
+
 
 5. Edit Configuration Files
 	(1) go to $SAGE_DIRECTORY/sageConfig
