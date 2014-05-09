@@ -36,23 +36,22 @@
 
 -------------------------------------------------------------------------------
 
-		         README file for SAGE v3.x
+		         README file for SAGE v3.5+
 
 		written by Byungil(Brent) Jeong, Ratko Jagodic,
-                           Luc Renambot
+                           Luc Renambot, Matthew Doering
 		
 -------------------------------------------------------------------------------
 
 
-0. Differences from v2.1
-	(1) Direct interaction with the display is now possible with a joystick
-	    connected to a machine where the UI is running
-	    (read more about it in ui/README)
-	(2) Launching SAGE and all of the components is now greatly simplified
-	    through SageLauncher. All of the components can be configured as well.
-	(3) SageProxy is now included in the SAGE distribution
-	    (for more info check bin/sageProxy/README)
-	(4) Bug fixes, minor changes to the applications
+0. Differences from v3.4
+	(1) Make environment has be re-factored.  Source and target directory structures have
+	    moved.  Build dependencies have been added.
+	(2) New options in DIM to control window display.
+	  - SHOW_WINDOW_TITLE = False -  Controls if the window title bar is displayed
+	  - CORNER_SCALE = .3 - Scale factor to size the corner boxes on objects
+	(3) Upper right corner now closes windows, does not resize.
+	(4) Bug fixes.
 
 	
 1. Install libraries
@@ -85,23 +84,32 @@
 	  
 4. Compile
 	(0) execute './configure' in $SAGE_DIRECTORY
-		not a 'real' configure script, mostly staging dependecies for applications
-	(1) execute 'make' in $SAGE_DIRECTORY
-		(a) with a multi-core machine, try: make -j 4
-		(a) with a SSD drive, try: make -j 12
-	(2) if you get errors, check include paths and library paths in make files in subdirectories
-	(3) execute make install in SAGE_DIRECTORY
-		(a) with a multi-core machine, try: make -j 4
-		(a) with a SSD drive, try: make -j 12
-
+		not a 'real' configure script, mostly staging dependencies for applications
+		
+	To make into dev tree
+	    (1) execute 'make' in $SAGE_DIRECTORY
+		    (a) with a multi-core machine, try: make -j 4
+		    (a) with a SSD drive, try: make -j 12
+	    (2) if you get errors, check include paths and library paths in make files in subdirectories		    
+		    
+    To make an install directory (creates a directory in $SAGE_DIRECTORY/build)
+	    (1) execute make install in SAGE_DIRECTORY
+		    (a) with a multi-core machine, try: make -j 4
+		    (a) with a SSD drive, try: make -j 12
+	    (2) if you get errors, check include paths and library paths in make files in subdirectories
+	To make a tarball (executes install and creates tarball in @SAGE_DIRECTORY/build)
+	    (1) execute make tarball in SAGE_DIRECTORY
+		    (a) with a multi-core machine, try: make -j 4
+		    (a) with a SSD drive, try: make -j 12
+	    (2) if you get errors, check include paths and library paths in make files in subdirectories	
 
 5. Edit Configuration Files
-	(1) go to $SAGE_DIRECTORY/bin
+	(1) go to $SAGE_DIRECTORY/sageConfig
 	(2) open "fsManager.conf" and edit following parameters
 	  a. fsManager : name and IP address of the machine on which
 			Free Space Manager runs. Usually the master node of cluster.
 			You can specify two IP addresses here from v1.3.
-			The first IP adderss will be used for system components
+			The first IP address will be used for system components
 			(SAIL, SAGE Receiver) and the second IP address will be used
 			for UI connections (sent to connection manager).
 			If only one IP address is specified, it will be used for both.
@@ -160,14 +168,11 @@
 		the command is completed. Then, press TAB key again. You can see
 		the description of the command.
 	(7) move 0 1000 0 : move the app window
+    (8) Shutdown SAGE
+	    (1) you can shutdown SAGE using fsConsole command "shutdown"
+	    (2) if the command doesn't work, execute the script $SAGE_DIRECTORY/bin/KILL_ALL 
 
-
-7. Shutdown SAGE
-	(1) you can shutdown SAGE using fsConsole command "shutdown"
-	(2) if the command doesn't work, execute the script KILL_ALL 
-
-
-7. Typical Usage - Using SageLauncher to set up, start and stop everything
+7. Typical Interactive Usage - Using SageLauncher to set up, start and stop everything
 	You will need all additional dependencies installed - python, wxPython, numarray
 	(1) In $SAGE_DIRECTORY/bin type "sage". This will start the SageLauncher which 
 	    will help you set up all the SAGE components and get them running easily
@@ -176,9 +181,12 @@
 	(3) To shutdown running components (incl SAGE), press STOP.
 	(3) Alternatively, check different components that you wish to run with SAGE. 
 	    You can also change the settings on each component from the Launcher.
-	    
 
-8. Using SAGE Bridge (NOT SUPPORTED ANYMORE)
+8. Typical Production Usage
+    (1) Start Sage - $SAGE_DIRECTORY/bin/GO-sage
+    (2) Stop Sage - $SAGE_DIRECTORY/bin/KILL_ALL 	    
+
+9. Using SAGE Bridge (NOT SUPPORTED ANYMORE)
 	(1) SAGE Bridge receives pixel streams from applications and distributes
 		to multiple SAGE sessions (a fsManager per session).
 	(2) SAGE Bridge is supposed to be executed on high-performance PCs bridging
@@ -199,7 +207,7 @@
 			SAGE Bridge can display received pixels for debugging.
 			This feature can be on/off by adding/removing BRIDGE_DEBUG_ flag
 			in the makefile in $SAGE_DIRECTORY/src
-		- rcvNwBufSize, sendNwBufSize, MTU : network parmeters used for
+		- rcvNwBufSize, sendNwBufSize, MTU : network parameters used for
 			the pixel streams between apps and SAGE Bridge
 
 	(5) Execute the binary "sageBridge" in $SAGE_DIRECTORY/bin.
