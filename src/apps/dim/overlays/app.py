@@ -454,6 +454,10 @@ class App(Overlay, EventHandler):
 
         pointer = event.device.pointer
         x, y = event.x, event.y
+        
+        # Send APP_QUIT if the X was clicked
+        if corner == TOP_RIGHT:
+            self.sageGate.sendAppEvent(APP_QUIT, self.app.getSailID())
 
         # TO APP
         if not event.device.globalMode:  

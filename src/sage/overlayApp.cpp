@@ -350,7 +350,7 @@ void overlayApp::drawCorners()
   if(activeCorners[TOP_RIGHT] == 1) {
     glTranslated(right, top, 0);
     glRotatef(180, 0.0, 0.0, 1.0);
-    drawOneCorner();
+    drawXCorner();
   }
   if(activeCorners[BOTTOM_RIGHT] == 1) {
     glTranslated(right, bottom, 0);
@@ -372,20 +372,29 @@ void overlayApp::drawCorners()
 
 void overlayApp::drawXCorner()
 {
-  int cs = cornerSize;
+	  int cs = cornerSize;
 
-  glColor4f(1.0, 0.0,
-            0.0, 0.9);
+	  glColor4f(color[0], color[1], color[2], 0.7);
+	  glBegin(GL_LINE_STRIP);
+	  glVertex3f(0, cs, z);
+	  glVertex3f(cs, cs, z);
+	  glVertex3f(cs, 0, z);
+	  glEnd();
 
-  glBegin(GL_TRIANGLE_STRIP); // Start drawing a triangle strip primitive
-  // The first triangle
-  glVertex3f(0.0f, 0.0f, 0.0f); // The bottom left corner
-  glVertex3f(cs, 0.0f, 0.0f); // The top left corner
-  glVertex3f(cs, cs, 0.0f); // The top right corner
-  // The end of the second triangle
-  glVertex3f(0.0f, cs, 0.0f); // The bottom right corner
-  glVertex3f(0.0f, 0.0f, 0.0f); // The bottom left corner
-  glEnd();
+	  glColor4f(0.0, 0.0, 0.0, 0.7);
+	  glBegin(GL_LINE_STRIP);
+	  glVertex3f(0+2, cs-2, z);
+	  glVertex3f(cs-2, cs-2, z);
+	  glVertex3f(cs-2, 0+2, z);
+	  glEnd();
+
+	  glColor4f(1.0f, 0.0f, 0.0f, 0.7);
+	  glBegin(GL_QUADS);
+	  glVertex3f(0, cs, z+Z_STEP);
+	  glVertex3f(cs, cs, z+Z_STEP);
+	  glVertex3f(cs, 0, z+Z_STEP);
+	  glVertex3f(0, 0, z+Z_STEP);
+	  glEnd();
 }
 
 
